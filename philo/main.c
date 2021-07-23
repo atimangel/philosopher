@@ -6,13 +6,13 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:30:39 by snpark            #+#    #+#             */
-/*   Updated: 2021/07/22 16:54:17 by snpark           ###   ########.fr       */
+/*   Updated: 2021/07/23 20:21:58 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	parse(t_philo *condition, int arg_n, char **arg_s)
+int	parse(t_condition *condition, int arg_n, char **arg_s)
 {
 	if (arg_n < 5)
 		printf("Error\nargmuant is not enough\n");
@@ -40,11 +40,53 @@ int	parse(t_philo *condition, int arg_n, char **arg_s)
 	return (1);
 }
 
+void	*who_are_you(void *data)
+{
+	t_philo	philo;
+	t_condition condition;
+
+	philo = *(t_philo *)data;
+	condition = *(t_condition *)philo.condition;
+	printf("I AM %d PHILOSOPHER dath time%d\n", philo.id, condition.death);
+}
+
+int	dinner_time(t_condition condition)
+{
+	int	i;
+	int	stat;
+	pthread_t	*philosopher;
+	t_philo	*status;
+
+	i = 0;
+	stat = 0;
+	philosopher = malloc(sizeof(pthread_t) * condition.number);
+	if (!philosopher)
+		return (0);
+	status = malloc(sizeof(t_philo) * condition.number);
+	if (!status)
+		return (0);
+	while (i < condition.number)
+	{
+		status[i].id = i + 1;
+		status[i].condition = &condition;
+		stat = pthread_create(philosopher + i, NULL, who_are_you, (void *)(status + i));
+		i++;
+	}
+	i = 0;
+	while (i < condition.number)
+	{
+		pthread_join(philosopher[i], NULL);
+		i++;
+	}
+	free(philosopher);
+	free(status);
+}
+
 int	main(int arg_n, char **arg_s)
 {	
-	t_philo	condition;
+	t_condition	condition;
 
 	if (!parse(&condition, arg_n, arg_s))
 		return (0);
-
+	dinner_time(condition);
 }
