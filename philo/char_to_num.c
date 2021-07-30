@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:01:36 by snpark            #+#    #+#             */
-/*   Updated: 2021/07/22 13:55:56 by snpark           ###   ########.fr       */
+/*   Updated: 2021/07/29 09:03:13 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static	int	ft_ispm(char c)
 		return (1);
 	else if (c == '-')
 		return (-1);
-	return (0);
+	return (1);
 }
 
 static int	ft_isdigit(int c)
@@ -38,7 +38,7 @@ static int	ft_isdigit(int c)
 int	ft_atoi(const char *string)
 {
 	int	i;
-	int	number;
+	long	number;
 	int	negative;
 
 	i = 0;
@@ -46,15 +46,15 @@ int	ft_atoi(const char *string)
 	while (ft_isspace(string[i]))
 		i++;
 	negative = ft_ispm(string[i]);
-	if (negative != 0)
+	if (string[i] == '-' || string[i] == '+')
 		i++;
 	while (ft_isdigit(string[i]))
 	{
 		number *= 10;
 		number += string[i] - '0';
-		if (negative != -1 && (unsigned int)number > 2147483647)
+		if (negative != -1 && number > 2147483647)
 			return (-1);
-		if (negative == -1 && (unsigned int)number > 2147483648)
+		if (negative == -1 && number > 2147483648)
 			return (0);
 		i++;
 	}
@@ -69,24 +69,21 @@ float	ft_atof(const char *string)
 	float	under_dot;
 	int		pm;
 
-	number = ft_atoi(string);
-	under_dot = 0;
+	number = 0;
+	under_dot = 1;
 	while (ft_isspace(*string))
 		string++;
 	pm = ft_ispm(*string);
 	if (pm)
 		string++;
 	while (ft_isdigit(*string))
+		number = number * 10 + *string++ - '0';
+	if (*string == '.')
 		string++;
-	if (*string == '.' && ft_isdigit(string[1]))
-		under_dot = ft_atoi(++string);
-	while (under_dot >= 1.0)
-		under_dot /= 10;
-	while (*(string++) == '0')
-		under_dot /= 10;
-	if (pm == -1)
-		number -= under_dot;
-	else
-		number += under_dot;
+	while (ft_isdigit(*string))
+	{
+		under_dot = under_dot * 0.1;
+		number += pm * under_dot * (*string++ - '0');
+	}
 	return (number);
 }

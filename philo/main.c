@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:30:39 by snpark            #+#    #+#             */
-/*   Updated: 2021/07/23 20:21:58 by snpark           ###   ########.fr       */
+/*   Updated: 2021/07/29 09:04:15 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	parse(t_condition *condition, int arg_n, char **arg_s)
 		condition->eat <= 0 || condition->sleep <= 0 ||
 		(arg_n == 6 && condition->need <= 0))
 	{
-		printf("Error\nargumant should over than 0 or num\n");
+		printf("Error\nargumant should over than 0 or number\n");
 		return (0);
 	}
 	return (1);
