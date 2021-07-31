@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:30:39 by snpark            #+#    #+#             */
-/*   Updated: 2021/07/29 09:04:15 by snpark           ###   ########.fr       */
+/*   Updated: 2021/07/31 21:01:28 by senoi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int	parse(t_condition *condition, int arg_n, char **arg_s)
 	if (arg_n > 6)
 		printf("Error\nargumant is too much\n");
 	if (arg_n < 5 || arg_n > 6)
-		return (0);
+		return (1);
 	if (condition->number <= 0 || condition->death <= 0 ||
 		condition->eat <= 0 || condition->sleep <= 0 ||
 		(arg_n == 6 && condition->need <= 0))
 	{
 		printf("Error\nargumant should over than 0 or number\n");
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 void	*who_are_you(void *data)
@@ -70,6 +70,8 @@ int	dinner_time(t_condition condition)
 		status[i].id = i + 1;
 		status[i].condition = &condition;
 		stat = pthread_create(philosopher + i, NULL, who_are_you, (void *)(status + i));
+		if (stat)
+			return (1);
 		i++;
 	}
 	i = 0;
@@ -86,7 +88,9 @@ int	main(int arg_n, char **arg_s)
 {	
 	t_condition	condition;
 
-	if (!parse(&condition, arg_n, arg_s))
-		return (0);
-	dinner_time(condition);
+	if (parse(&condition, arg_n, arg_s))
+		return (1);
+	if (set_table(&condition))
+		return (1);
+	return (0);
 }
