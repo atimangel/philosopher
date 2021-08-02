@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/07/31 21:00:04 by senoi            ###   ########.fr       */
+/*   Updated: 2021/08/02 16:24:30 by senoi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_condition
 	struct s_philo	*philo;
 	pthread_mutex_t	*mic;
 	long	start_time;
+	int	test;
 }		t_condition;
 
 typedef	struct	s_philo
@@ -50,6 +51,7 @@ typedef	struct	s_philo
 	char	able_to_think;
 	int		lfork;
 	int		rfork;
+	pthread_t thread_info; 
 }		t_philo;
 
 /*
@@ -68,4 +70,13 @@ int	exit_error(const char *msg);
 **timestamp.c
 */
 long	timestamp(void);
+void	ft_usleep(int time);
+/*
+**routune.c
+*/
+int		routine(void);
+/*
+**clean.c
+*/
+int		clean_table(t_condition *condition);
 #endif

@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:30:39 by snpark            #+#    #+#             */
-/*   Updated: 2021/07/31 21:01:28 by senoi            ###   ########.fr       */
+/*   Updated: 2021/08/02 15:45:38 by senoi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	parse(t_condition *condition, int arg_n, char **arg_s)
 		condition->eat = ft_atoi(arg_s[3]);
 		condition->sleep = ft_atoi(arg_s[4]);
 		condition->need = -1;
+		printf("number of philo %i\ntime to death %i\ntime to eat %i\ntime to sleep %i\n",
+			condition->number, condition->death, condition->eat, condition->sleep);
 	}
 	if (arg_n == 6)
 		condition->need = ft_atoi(arg_s[5]);
@@ -39,7 +41,7 @@ int	parse(t_condition *condition, int arg_n, char **arg_s)
 	}
 	return (0);
 }
-
+/*
 void	*who_are_you(void *data)
 {
 	t_philo	philo;
@@ -48,8 +50,8 @@ void	*who_are_you(void *data)
 	philo = *(t_philo *)data;
 	condition = *(t_condition *)philo.condition;
 	printf("I AM %d PHILOSOPHER dath time%d\n", philo.id, condition.death);
-}
-
+}*/
+/*
 int	dinner_time(t_condition condition)
 {
 	int	i;
@@ -82,7 +84,7 @@ int	dinner_time(t_condition condition)
 	}
 	free(philosopher);
 	free(status);
-}
+}*/
 
 int	main(int arg_n, char **arg_s)
 {	
@@ -92,5 +94,6 @@ int	main(int arg_n, char **arg_s)
 		return (1);
 	if (set_table(&condition))
 		return (1);
+	clean_table(&condition);
 	return (0);
 }
