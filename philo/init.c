@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:29:10 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/04 11:40:44 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/04 20:07:30 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	*who_are_you(void *arg)
 //	printf("-------end-------\n");
 }
 */
+/*
 void	*eat(void *arg)
 {
 	t_philo	*philo;
@@ -103,7 +104,7 @@ void	*eat(void *arg)
 	pthread_mutex_unlock(philo->condition->fork + philo->rfork);
 	printf("%dms %d philo drop %i fork\n", timestamp(philo->condition->start_time), philo->id, philo->rfork);
 }
-
+*/
 int	start_dinner(t_condition *condition)
 {
 	int	i;
@@ -114,7 +115,7 @@ int	start_dinner(t_condition *condition)
 	i = 0;
 	while (i  < condition->number)
 	{
-		pthread_create(&condition->philo[i].thread_info, NULL, eat, condition->philo + i);
+		pthread_create(&condition->philo[i].thread_info, NULL, routine, condition->philo + i);
 		usleep(1);
 		i++;
 	}

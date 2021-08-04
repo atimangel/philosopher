@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:25:26 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/04 11:41:15 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/04 20:26:09 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_usleep(int time)
 	long	start;
 	long	check;
 
+	time--;
 	gettimeofday(&time_buf, NULL);
 	start = time_buf.tv_sec * 1000000 + time_buf.tv_usec;
 	check = start;
