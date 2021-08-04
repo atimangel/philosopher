@@ -51,7 +51,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	philo->start_eat =
 		philo->condition->start_time;
-	while(is_dead(philo) > 0)
+	while(is_dead(philo) >= 0)
 	{
 		philo_eat(philo);
 		philo_sleep(philo);

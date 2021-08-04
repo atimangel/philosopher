@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:25:26 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/04 20:26:09 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/04 20:52:53 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,8 @@ int		timestamp(long long start)
 
 void	ft_usleep(int time)
 {
-	struct timeval time_buf;
-	long	start;
-	long	check;
+	long long	end;
 
-	time--;
-	gettimeofday(&time_buf, NULL);
-	start = time_buf.tv_sec * 1000000 + time_buf.tv_usec;
-	check = start;
-	while (time >= check - start)
-	{
-		gettimeofday(&time_buf, NULL);
-		check = time_buf.tv_sec * 1000000 + time_buf.tv_usec;
-	}
+	end = gettime() + time;
+	while (end > gettime());
 }
