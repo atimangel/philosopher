@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:30:39 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/02 15:45:38 by senoi            ###   ########.fr       */
+/*   Updated: 2021/08/04 21:29:23 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	parse(t_condition *condition, int arg_n, char **arg_s)
 		condition->eat = ft_atoi(arg_s[3]);
 		condition->sleep = ft_atoi(arg_s[4]);
 		condition->need = -1;
+		condition->stop = 0;
 		printf("number of philo %i\ntime to death %i\ntime to eat %i\ntime to sleep %i\n",
 			condition->number, condition->death, condition->eat, condition->sleep);
 	}

@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/04 20:07:53 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/04 21:57:44 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef struct s_condition
 	struct s_philo	*philo;
 	pthread_mutex_t	*mic;
 	long long	start_time;
-	int		test;
+	int		stop;
+	pthread_t	ripper;
 }		t_condition;
 
 typedef	struct	s_philo
@@ -74,9 +75,14 @@ void		ft_usleep(int time);
 /*
 **routune.c
 */
+int		is_dead(t_philo *philo);
 void		*routine(void *arg);
 /*
 **clean.c
 */
 int		clean_table(t_condition *condition);
+/*
+**ripper.c
+*/
+void		*ripper(void *arg);
 #endif

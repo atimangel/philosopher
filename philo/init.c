@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:29:10 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/04 20:07:30 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/04 21:59:34 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int	start_dinner(t_condition *condition)
 	int	thread_end;
 
 	condition->start_time = gettime();
-	condition->test = 0;
 	i = 0;
 	while (i  < condition->number)
 	{
@@ -119,13 +118,14 @@ int	start_dinner(t_condition *condition)
 		usleep(1);
 		i++;
 	}
+	pthread_create(&condition->ripper, NULL, ripper, condition);
 	i = 0;
 	while (i < condition->number)
 	{
 		if(pthread_detach(condition->philo[i].thread_info));
 		i++;
 	}
-	while(1);
+	pthread_join(condition->ripper, NULL);
 }
 
 int	set_table(t_condition *condition)

@@ -1,4 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/04 21:49:07 by snpark            #+#    #+#             */
+/*   Updated: 2021/08/04 21:49:09 by snpark           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
+
+/*
+** arg < 0	DEAD
+** arg >= 0	ALIVE
+*/
 
 int	is_dead(t_philo *philo)
 {
@@ -14,6 +31,7 @@ int	is_dead(t_philo *philo)
 	return(arg);
 }
 
+
 void	philo_eat(t_philo *philo)
 {
 	pthread_mutex_t	*fork;
@@ -22,6 +40,7 @@ void	philo_eat(t_philo *philo)
 	fork = philo->condition->fork;
 	start = philo->condition->start_time;
 	pthread_mutex_lock(fork + philo->lfork);
+	philo->spaghetti++;
 	printf("%dms	%d has taken a fork\n", timestamp(start), philo->id);
 	pthread_mutex_lock(fork + philo->rfork);
 	printf("%dms	%d has taken a fork\n", timestamp(start), philo->id);
@@ -44,6 +63,7 @@ void	philo_think(t_philo *philo)
 	printf("%dms	%d is thinking\n",
 		timestamp(philo->condition->start_time), philo->id);
 }
+
 void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -51,7 +71,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	philo->start_eat =
 		philo->condition->start_time;
-	while(is_dead(philo) >= 0)
+	while(!philo->condition->stop)
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
