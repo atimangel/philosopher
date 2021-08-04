@@ -4,14 +4,14 @@ int	routine()
 {
 	long start;
 
-	start = timestamp();
+	start = gettime();
 	while (1)
 	{
-		printf("%ldms eat\n", timestamp() - start);
+		printf("%dms eat\n", timestamp(start));
 		usleep(200 * 1000);
-		printf("%ldms sleep\n", timestamp() - start);
+		printf("%dms sleep\n", timestamp(start));
 		usleep(200 * 1000);
-		printf("%ldms think\n", timestamp() - start);
+		printf("%dms think\n", timestamp(start));
 		usleep(200 * 1000);
 	}
 }

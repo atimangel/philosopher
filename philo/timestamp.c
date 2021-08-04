@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   timestamp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/04 11:25:26 by snpark            #+#    #+#             */
+/*   Updated: 2021/08/04 11:41:15 by snpark           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 long long	gettime(void)
@@ -19,9 +31,9 @@ int		timestamp(long long start)
 	if (gettimeofday(&time, NULL) == -1)
 	{
 		printf("Error: can't get time od day\n");
-		retrun (-1);
+		return (-1);
 	}
-	retrun((start - time.tv_sec * 1000000L + time.tv_usec) / 1000);
+	return((time.tv_sec * 1000000L + time.tv_usec - start) / 1000);
 }
 
 void	ft_usleep(int time)
