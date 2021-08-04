@@ -52,19 +52,24 @@ int	set_mic(t_condition *condition)
 void	*who_are_you(void *arg)
 {
 	t_philo	*philo;
+	int a;
 	int	i;
 
 	i = 0;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(philo->condition->mic);
+	printf("---------start--------\n%ld\n",philo->thread_info);
+	if (a = pthread_mutex_lock(philo->condition->mic))
+		printf("Error: %d\n", a);
 	while (i < 4)
 	{
 		printf("%ldms %i philo introduce itself %i\n", timestamp() - philo->condition->start_time, philo->id, i);
+		usleep(10000);
 		i++;
 	}
 	//printf("%ldms %i philo introduce itself %i\n", timestamp() - philo->condition->start_time, philo->id, i);
 	pthread_mutex_unlock(philo->condition->mic);
+	printf("-------end-------\n");
 }
 
 void	*eat(void *arg)
@@ -80,7 +85,7 @@ void	*eat(void *arg)
 	philo->start_eat = timestamp();
 	printf("%ldms %d philo start eat\n", timestamp() - philo->condition->start_time, philo->id);
 	philo->limit = philo->start_eat + philo->condition->death;
-	//usleep(philo->condition->death * 1000);
+	usleep(philo->condition->death * 1000);
 	printf("%ldms %d philo finish eat\n", timestamp() - philo->condition->start_time, philo->id);
 	pthread_mutex_unlock(philo->condition->fork + philo->lfork);
 	printf("%ldms %d philo drop %i fork\n", timestamp()- philo->condition->start_time , philo->id, philo->lfork);
@@ -91,6 +96,7 @@ void	*eat(void *arg)
 int	start_dinner(t_condition *condition)
 {
 	int	i;
+	int	thread_end;
 
 	condition->start_time = timestamp();
 	condition->test = 0;
@@ -114,10 +120,11 @@ int	start_dinner(t_condition *condition)
 	i = 0;
 	while (i < condition->number)
 	{
-		pthread_detach(condition->philo[i].thread_info);
+		if(pthread_detach(condition->philo[i].thread_info));// (void *)&thread_end))
 		printf("%d %ld\n", i, pthread_self());
 		i++;
 	}
+	while(1);
 }
 
 int	set_table(t_condition *condition)
