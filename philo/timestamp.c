@@ -1,6 +1,6 @@
 #include "philo.h"
 
-long	timestamp(void)
+long long	gettime(void)
 {
 	struct timeval time;
 
@@ -9,7 +9,19 @@ long	timestamp(void)
 		printf("Error: can't get time of day\n");
 		return (-1);
 	}
-	return(time.tv_sec * 1000L + time.tv_usec / 1000L);
+	return(time.tv_sec * 1000000L + time.tv_usec);
+}
+
+int		timestamp(long long start)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+	{
+		printf("Error: can't get time od day\n");
+		retrun (-1);
+	}
+	retrun((start - time.tv_sec * 1000000L + time.tv_usec) / 1000);
 }
 
 void	ft_usleep(int time)
