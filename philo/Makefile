@@ -6,7 +6,7 @@
 #    By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 13:11:34 by snpark            #+#    #+#              #
-#    Updated: 2021/08/02 14:04:24 by senoi            ###   ########.fr        #
+#    Updated: 2021/08/05 12:19:34 by snpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRC = char_to_num.c\
 	timestamp.c\
 	routine.c\
 	clean.c\
+	ripper.c\
+	message.c
 
 NAME = philo
 

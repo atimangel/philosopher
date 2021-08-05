@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:07 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/04 21:49:09 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/05 12:22:54 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	philo_eat(t_philo *philo)
 	start = philo->condition->start_time;
 	pthread_mutex_lock(fork + philo->lfork);
 	philo->spaghetti++;
-	printf("%dms	%d has taken a fork\n", timestamp(start), philo->id);
+	philo_message(philo, FORK);
 	pthread_mutex_lock(fork + philo->rfork);
-	printf("%dms	%d has taken a fork\n", timestamp(start), philo->id);
-	printf("%dms	%d is eating\n", timestamp(start), philo->id);
+	philo_message(philo, FORK);
 	philo->start_eat = gettime();
+	philo_message(philo, EAT);
 	ft_usleep(philo->condition->eat * 1000);
 	pthread_mutex_unlock(fork + philo->lfork);
 	pthread_mutex_unlock(fork + philo->rfork);
@@ -53,15 +53,13 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
-	printf("%dms	%d is sleeping\n",
-		timestamp(philo->condition->start_time), philo->id);
+	philo_message(philo, SLEEP);
 	ft_usleep(philo->condition->sleep * 1000);
 }
 
 void	philo_think(t_philo *philo)
 {
-	printf("%dms	%d is thinking\n",
-		timestamp(philo->condition->start_time), philo->id);
+	philo_message(philo, THINK);
 }
 
 void	*routine(void *arg)

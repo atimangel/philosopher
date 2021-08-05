@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/04 21:57:44 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/05 12:23:35 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 # include <sys/time.h>
 //gettimeofday
 # include <pthread.h>
+
+# define FORK 0
+# define EAT 1
+# define SLEEP 2
+# define THINK 3
 
 struct	s_philo;
 
@@ -85,4 +90,8 @@ int		clean_table(t_condition *condition);
 **ripper.c
 */
 void		*ripper(void *arg);
+/*
+**message.c
+*/
+void		philo_message(t_philo *philo, char flag);
 #endif
