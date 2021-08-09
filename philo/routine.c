@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:07 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/08 13:50:52 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 11:01:55 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ void	*routine(void *arg)
 		usleep(philo->condition->sleep * 1000);
 		philo_message(philo, THINK);
 	}
+	return (NULL);
 }

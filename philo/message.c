@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 12:14:06 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/07 16:43:00 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 10:55:52 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	philo_message(t_philo *philo, char flag)
 
 	id = philo->id;
 	start = philo->condition->start_time;
+	if (philo->condition->stop)
+		return ;
 	pthread_mutex_lock(philo->condition->mic);
 	if (flag == 0)
 		printf("%d	%d has taken a fork\n",

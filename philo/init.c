@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:29:10 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/08 15:18:08 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 10:46:21 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	start_dinner(t_condition *condition)
 	usleep(50000);
 	pthread_create(&condition->ripper, NULL, ripper, condition);
 	pthread_join(condition->ripper, NULL);
+	return (0);
 }
 
 int	set_table(t_condition *condition)
