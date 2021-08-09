@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/05 12:23:35 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/08 14:56:40 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,34 @@
 # define PHILO_H
 
 # include <stdio.h>
-//printf
 # include <stdlib.h>
-//malloc free
 # include <string.h>
-//memset
 # include <unistd.h>
-//write usleep
 # include <sys/time.h>
-//gettimeofday
 # include <pthread.h>
 
 # define FORK 0
 # define EAT 1
 # define SLEEP 2
 # define THINK 3
+# define DEATH 4
 
 struct	s_philo;
 
 typedef struct s_condition
 {
-	int		number;
-	int		death;
-	int		eat;
-	int		sleep;
-	int		need;
-	pthread_mutex_t	*fork;
+	int			number;
+	int			death;
+	int			eat;
+	int			sleep;
+	int			need;
+	char		*fork;
+	pthread_mutex_t	*m_fork;
 	struct s_philo	*philo;
 	pthread_mutex_t	*mic;
 	long long	start_time;
-	int		stop;
+	int			stop;
+	pthread_mutex_t	*mouth;
 	pthread_t	ripper;
 }		t_condition;
 
@@ -53,7 +51,6 @@ typedef	struct	s_philo
 	int		id;
 	int	 	spaghetti;
 	long long	start_eat;
-	char		able_to_think;
 	int		lfork;
 	int		rfork;
 	pthread_t thread_info; 

@@ -6,7 +6,7 @@
 #    By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 13:11:34 by snpark            #+#    #+#              #
-#    Updated: 2021/08/05 12:19:34 by snpark           ###   ########.fr        #
+#    Updated: 2021/08/06 17:17:48 by snpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,7 @@ $(NAME) :
 clean :
 	rm $(NAME)
 
-fclean :
+fclean : clean
 
 re : clean all
 
-bonus :

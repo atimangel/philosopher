@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:01:36 by snpark            #+#    #+#             */
-/*   Updated: 2021/07/29 09:03:13 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/06 16:42:43 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static int	ft_isdigit(int c)
 
 int	ft_atoi(const char *string)
 {
-	int	i;
+	int		i;
 	long	number;
-	int	negative;
+	int		negative;
 
 	i = 0;
 	number = 0;
@@ -60,30 +60,5 @@ int	ft_atoi(const char *string)
 	}
 	if (negative == -1)
 		number *= -1;
-	return (number);
-}
-
-float	ft_atof(const char *string)
-{
-	float	number;
-	float	under_dot;
-	int		pm;
-
-	number = 0;
-	under_dot = 1;
-	while (ft_isspace(*string))
-		string++;
-	pm = ft_ispm(*string);
-	if (pm)
-		string++;
-	while (ft_isdigit(*string))
-		number = number * 10 + *string++ - '0';
-	if (*string == '.')
-		string++;
-	while (ft_isdigit(*string))
-	{
-		under_dot = under_dot * 0.1;
-		number += pm * under_dot * (*string++ - '0');
-	}
 	return (number);
 }
