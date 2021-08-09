@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:30:39 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/08 15:01:32 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 11:55:32 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int arg_n, char **arg_s)
 		return (1);
 	if (set_table(&condition))
 		return (1);
+	ripper(&condition, condition.philo);
+	usleep(1000000);
 	clean_table(&condition);
 	return (0);
 }

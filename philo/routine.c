@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:07 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 11:01:55 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 11:55:09 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ void	take_fork(t_philo *philo, int fork_num)
 	philo_message(philo, FORK);
 }
 
-void	philo_eat(t_philo *philo)
+int	philo_eat(t_philo *philo)
 {
 	pthread_mutex_t	*m_fork;
 
 	m_fork = philo->condition->m_fork;
 	take_fork(philo, philo->lfork);
+	if (philo->condition->number == 1)
+		return (1);
 	take_fork(philo, philo->rfork);
 	pthread_mutex_lock(philo->condition->mouth);
 	philo->start_eat = gettime();
@@ -57,6 +59,7 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(m_fork + philo->lfork);
 	philo->condition->fork[philo->rfork]++;
 	pthread_mutex_unlock(m_fork + philo->rfork);
+	return (0);
 }
 
 void	*routine(void *arg)
@@ -72,7 +75,11 @@ void	*routine(void *arg)
 		usleep(philo->condition->eat * 900);
 	while (!philo->condition->stop)
 	{
-		philo_eat(philo);
+		if (philo_eat(philo))
+		{
+			pthread_mutex_unlock(philo->condition->m_fork);
+			break ;
+		}
 		philo_message(philo, SLEEP);
 		usleep(philo->condition->sleep * 1000);
 		philo_message(philo, THINK);

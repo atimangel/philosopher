@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 10:39:37 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 11:34:22 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			clean_table(t_condition *condition);
 /*
 **ripper.c
 */
-void		*ripper(void *arg);
+void		ripper(t_condition *condition, t_philo *philo);
 /*
 **message.c
 */

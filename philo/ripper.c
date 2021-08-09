@@ -6,18 +6,16 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:00 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 11:20:20 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 11:54:30 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*ripper(void *arg)
+void	ripper(t_condition *condition, t_philo *philo)
 {
-	t_condition	*condition;
 	int			i;
 
-	condition = (t_condition *)arg;
 	while (!condition->stop)
 	{
 		i = 0;
@@ -27,6 +25,7 @@ void	*ripper(void *arg)
 			if (is_dead(condition->philo + i++) < 0)
 			{
 				condition->stop++;
+				pthread_mutex_unlock(condition->mouth);
 				break ;
 			}
 			pthread_mutex_unlock(condition->mouth);
@@ -34,13 +33,9 @@ void	*ripper(void *arg)
 		}
 		i = 0;
 		while (condition->need > 0 && i < condition->number
-			&& condition->philo[i].spaghetti >= condition->need)
+			&& philo[i].spaghetti >= condition->need)
 			i++;
 		if (i && i == condition->number)
 			condition->stop++;
 	}
-	condition->stop++;
-	pthread_mutex_unlock(condition->mouth);
-	sleep(1);
-	return (NULL);
 }
