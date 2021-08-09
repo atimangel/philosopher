@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/08 14:56:40 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 10:39:37 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,59 +30,59 @@ struct	s_philo;
 
 typedef struct s_condition
 {
-	int			number;
-	int			death;
-	int			eat;
-	int			sleep;
-	int			need;
-	char		*fork;
+	int				number;
+	int				death;
+	int				eat;
+	int				sleep;
+	int				need;
+	char			*fork;
 	pthread_mutex_t	*m_fork;
 	struct s_philo	*philo;
 	pthread_mutex_t	*mic;
-	long long	start_time;
-	int			stop;
+	long long		start_time;
+	int				stop;
 	pthread_mutex_t	*mouth;
-	pthread_t	ripper;
-}		t_condition;
+	pthread_t		ripper;
+}					t_condition;
 
-typedef	struct	s_philo
+typedef struct s_philo
 {
 	t_condition	*condition;
-	int		id;
-	int	 	spaghetti;
+	int			id;
+	int			spaghetti;
 	long long	start_eat;
-	int		lfork;
-	int		rfork;
-	pthread_t thread_info; 
-}		t_philo;
+	int			lfork;
+	int			rfork;
+	pthread_t	thread_info;
+}				t_philo;
 
 /*
 **init.c
 */
-int		set_table(t_condition *condition);
+int			set_table(t_condition *condition);
 /*
 **char_to_num.c
 */
-int		ft_atoi(const char *string);
+int			ft_atoi(const char *string);
 /*
 **exit.c
 */
-int		exit_error(const char *msg);
+int			exit_error(const char *msg);
 /*
 **timestamp.c
 */
 long long	gettime(void);
-int		timestamp(long long start);
+int			timestamp(long long start);
 void		ft_usleep(int time);
 /*
 **routune.c
 */
-int		is_dead(t_philo *philo);
+int			is_dead(t_philo *philo);
 void		*routine(void *arg);
 /*
 **clean.c
 */
-int		clean_table(t_condition *condition);
+int			clean_table(t_condition *condition);
 /*
 **ripper.c
 */
