@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:00 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 11:01:22 by snpark           ###   ########.fr       */
+/*   Updated: 2021/08/09 11:20:20 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	*ripper(void *arg)
 		{
 			pthread_mutex_lock(condition->mouth);
 			if (is_dead(condition->philo + i++) < 0)
+			{
+				condition->stop++;
 				break ;
+			}
 			pthread_mutex_unlock(condition->mouth);
 			usleep(9000 / condition->number);
 		}
@@ -37,6 +40,7 @@ void	*ripper(void *arg)
 			condition->stop++;
 	}
 	condition->stop++;
+	pthread_mutex_unlock(condition->mouth);
 	sleep(1);
 	return (NULL);
 }
