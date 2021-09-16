@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:30:39 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 11:55:32 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/16 14:06:03 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	main(int arg_n, char **arg_s)
 
 	if (parse(&condition, arg_n, arg_s))
 		return (1);
-	printf("%d %d %d %d\n", condition.number, condition.death, condition.eat, condition.sleep);
 	if (set_table(&condition))
 		return (1);
 	return (0);

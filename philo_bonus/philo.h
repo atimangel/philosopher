@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 11:34:22 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/16 14:08:46 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <sys/wait.h>
 
 # define FORK 0
 # define EAT 1
@@ -36,13 +37,13 @@ typedef struct s_condition
 	int				eat;
 	int				sleep;
 	int				need;
-	sem_t				*l_fork;	
-	sem_t				*r_fork;	
-	sem_t				*stop;
+	sem_t			*l_fork;	
+	sem_t			*r_fork;	
+	sem_t			*stop;
 	long long		start_time;
 	long long		start_eat;
 	int				id;
-	int			spaghetti;
+	int				spaghetti;
 	pid_t			*philos;
 }					t_condition;
 
@@ -62,17 +63,14 @@ int			exit_error(const char *msg);
 **timestamp.c
 */
 long long	gettime(void);
-int			timestamp(long long start);
-void		ft_usleep(int time);
+int			timestamp(const long long start);
+void		ft_usleep(const long long deadline);
 /*
 **routune.c
 */
 int			is_dead(const long long deadline);
 void		routine(t_condition *const condition);
-/*
-**clean.c
-*/
-int			clean_table(t_condition *condition);
+void		clean_table(t_condition *condition);
 /*
 **message.c
 */

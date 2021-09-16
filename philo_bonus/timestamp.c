@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:25:26 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/08 13:43:42 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/16 13:50:17 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,3 +29,8 @@ int	timestamp(const long long start)
 	return ((gettime() - start) / 1000);
 }
 
+void	ft_usleep(const long long deadline)
+{
+	while (gettime() <= deadline)
+		usleep(32);
+}

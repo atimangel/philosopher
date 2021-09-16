@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: snpark <snpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:07 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 11:55:09 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/05 14:07:53 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,38 +27,25 @@ int	is_dead(t_philo *philo)
 	return (arg);
 }
 
-void	take_fork(t_philo *philo, int fork_num)
+void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->condition->m_fork + fork_num);
-	if (philo->condition->fork[fork_num]-- == 1)
-		;
-	else
-	{
-		printf("Error: %dfork is duplicating\n", fork_num);
-		philo->condition->stop++;
-	}
+	pthread_mutex_lock(philo->condition->m_fork + philo->lfork);
+	philo_message(philo, FORK);
+	pthread_mutex_lock(philo->condition->m_fork + philo->rfork);
 	philo_message(philo, FORK);
 }
 
 int	philo_eat(t_philo *philo)
 {
-	pthread_mutex_t	*m_fork;
-
-	m_fork = philo->condition->m_fork;
-	take_fork(philo, philo->lfork);
-	if (philo->condition->number == 1)
-		return (1);
-	take_fork(philo, philo->rfork);
+	take_fork(philo);
 	pthread_mutex_lock(philo->condition->mouth);
 	philo->start_eat = gettime();
-	philo->spaghetti++;
+	++philo->spaghetti;
 	pthread_mutex_unlock(philo->condition->mouth);
 	philo_message(philo, EAT);
 	usleep(philo->condition->eat * 1000);
-	philo->condition->fork[philo->lfork]++;
-	pthread_mutex_unlock(m_fork + philo->lfork);
-	philo->condition->fork[philo->rfork]++;
-	pthread_mutex_unlock(m_fork + philo->rfork);
+	pthread_mutex_unlock(philo->condition->m_fork + philo->lfork);
+	pthread_mutex_unlock(philo->condition->m_fork + philo->rfork);
 	return (0);
 }
 
@@ -71,7 +58,7 @@ void	*routine(void *arg)
 		;
 	philo->start_eat = philo->condition->start_time;
 	usleep(philo->id * 10);
-	if (philo->id % 2 == 0)
+	if (philo->id & 1)
 		usleep(philo->condition->eat * 900);
 	while (!philo->condition->stop)
 	{

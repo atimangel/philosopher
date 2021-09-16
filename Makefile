@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: snpark <snpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 13:11:34 by snpark            #+#    #+#              #
-#    Updated: 2021/08/06 17:17:48 by snpark           ###   ########.fr        #
+#    Updated: 2021/09/16 14:33:53 by snpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,17 +20,38 @@ SRC = char_to_num.c\
 	ripper.c\
 	message.c
 
+SRCS = $(SRC:%=./philo/%)
+OBJ = $(SRCS:%.c=%.o)
+
+BONUS_SRC = main.c\
+	init.c\
+	routine.c\
+	timestamp.c\
+	char_to_num.c
+
+BONUS_SRCS = $(BONUS_SRC:%=./philo_bonus/%)
+BONUS_OBJ = $(BONUS_SRCS:%.c=%.o)
+
 NAME = philo
+
+CPPFLAG = -pthread
 
 all : $(NAME)
 
-$(NAME) :
-	gcc -o $(NAME) $(SRC) -lpthread
+%.o : %.c
+	gcc $(CPPFLAG) -c -o $@ $<
+
+$(NAME) : $(OBJ)
+	gcc -o ./$(NAME)/$(NAME) $(OBJ) $(CPPFLAG) 
+
+bonus : $(BONUS_OBJ)
+	gcc -o ./$(NAME)_bonus/$(NAME)_bonus $(BONUS_OBJ) $(CPPFLAG) 
 
 clean :
-	rm $(NAME)
+	rm -rf $(OBJ) $(BONUS_OBJ)
 
 fclean : clean
+	rm -rf ./philo/philo ./philo_bonus/philo_bonus
 
 re : clean all
 

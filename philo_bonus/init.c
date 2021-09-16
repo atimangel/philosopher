@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:29:10 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 11:32:48 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/16 14:04:25 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ int	set_fork(t_condition *condition)
 
 int	start_dinner(t_condition *condition)
 {
-	int	check;
-	int	number_philos;
-
 	condition->id = 0;
 	condition->start_time = gettime();
 	condition->start_eat = condition->start_time;
@@ -57,6 +54,14 @@ int	start_dinner(t_condition *condition)
 			exit(1);
 		}
 	}
+	return (0);
+}
+
+void	clean_table(t_condition *condition)
+{
+	int	check;
+	int	number_philos;
+
 	number_philos = 0;
 	while (++number_philos <= condition->number)
 	{
@@ -68,7 +73,6 @@ int	start_dinner(t_condition *condition)
 				kill(condition->philos[condition->id], SIGKILL);
 		}
 	}
-	return (0);
 }
 
 int	set_table(t_condition *condition)
@@ -77,8 +81,9 @@ int	set_table(t_condition *condition)
 		return (1);
 	condition->philos = malloc(sizeof(pid_t *) * condition->number);
 	if (condition->philos == NULL)
-		return(1);
+		return (1);
 	if (start_dinner(condition))
 		return (1);
+	clean_table(condition);
 	return (0);
 }
