@@ -43,7 +43,7 @@ int	philo_eat(t_philo *philo)
 	++philo->spaghetti;
 	pthread_mutex_unlock(philo->condition->mouth);
 	philo_message(philo, EAT);
-	usleep(philo->condition->eat * 1000);
+	ft_usleep(gettime() + philo->condition->eat * 1000);
 	pthread_mutex_unlock(philo->condition->m_fork + philo->lfork);
 	pthread_mutex_unlock(philo->condition->m_fork + philo->rfork);
 	return (0);
@@ -57,9 +57,9 @@ void	*routine(void *arg)
 	while (philo->condition->stop == 1)
 		;
 	philo->start_eat = philo->condition->start_time;
-	usleep(philo->id * 10);
+	ft_usleep(gettime() + philo->id * 10);
 	if (philo->id & 1)
-		usleep(philo->condition->eat * 900);
+		ft_usleep(gettime() + philo->condition->eat * 900);
 	while (!philo->condition->stop)
 	{
 		if (philo_eat(philo))
@@ -68,7 +68,7 @@ void	*routine(void *arg)
 			break ;
 		}
 		philo_message(philo, SLEEP);
-		usleep(philo->condition->sleep * 1000);
+		ft_usleep(gettime() + philo->condition->sleep * 1000);
 		philo_message(philo, THINK);
 	}
 	return (NULL);

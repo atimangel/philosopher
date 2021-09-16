@@ -72,8 +72,8 @@ int			exit_error(const char *msg);
 **timestamp.c
 */
 long long	gettime(void);
-int			timestamp(long long start);
-void		ft_usleep(int time);
+int			timestamp(const long long start);
+void		ft_usleep(const long long deadline);
 /*
 **routune.c
 */
