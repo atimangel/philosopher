@@ -6,7 +6,7 @@
 #    By: snpark <snpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 13:11:34 by snpark            #+#    #+#              #
-#    Updated: 2021/09/16 16:05:48 by snpark           ###   ########.fr        #
+#    Updated: 2021/09/16 16:43:00 by snpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ SRC = char_to_num.c\
 	main.c\
 	timestamp.c\
 	routine.c\
-	clean.c\
 	ripper.c\
 	message.c
 

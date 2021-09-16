@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:29:10 by snpark            #+#    #+#             */
-/*   Updated: 2021/09/16 14:04:25 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/16 16:56:59 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,9 @@
 
 int	set_fork(t_condition *condition)
 {
-	int	n;
-
-	n = condition->number;
-	if (n != 1)
-		n >>= 1;
-	sem_unlink("left_fork");
-	condition->l_fork = sem_open("left_fork", O_CREAT, 0644, n);
-	if (condition->l_fork == SEM_FAILED)
-		return (1);
-	if (condition->number == 1)
-		--n;
-	else if (condition->number & 1)
-		++n;
-	sem_unlink("right_fork");
-	condition->r_fork = sem_open("right_fork", O_CREAT, 0644, n);
-	if (condition->r_fork == SEM_FAILED)
+	sem_unlink("fork");
+	condition->fork = sem_open("fork", O_CREAT, 0644, condition->number);
+	if (condition->fork == SEM_FAILED)
 		return (1);
 	sem_unlink("stop");
 	condition->stop = sem_open("stop", O_CREAT, 0644, 1);

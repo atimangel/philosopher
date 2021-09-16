@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 21:49:07 by snpark            #+#    #+#             */
-/*   Updated: 2021/09/16 13:42:55 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/16 17:06:52 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	is_dead(const long long deadline)
 
 void	take_fork(const t_condition *const condition)
 {
-	sem_wait(condition->l_fork);
+	sem_wait(condition->fork);
 	printf("%d	%d has taken a fork\n", \
 	timestamp(condition->start_time), condition->id);
-	sem_wait(condition->r_fork);
+	sem_wait(condition->fork);
 	printf("%d	%d has taken a fork\n", \
 	timestamp(condition->start_time), condition->id);
 }
@@ -39,10 +39,10 @@ int	philo_eat(t_condition *condition)
 	take_fork(condition);
 	printf("%d	%d is eating\n", \
 	timestamp(condition->start_time), condition->id);
-	ft_usleep(gettime() + condition->eat);
 	condition->start_eat = gettime();
-	sem_post(condition->l_fork);
-	sem_post(condition->r_fork);
+	ft_usleep(gettime() + condition->eat);
+	sem_post(condition->fork);
+	sem_post(condition->fork);
 	return (0);
 }
 

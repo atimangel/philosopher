@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/09/16 14:08:46 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/16 16:55:09 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ typedef struct s_condition
 	int				eat;
 	int				sleep;
 	int				need;
-	sem_t			*l_fork;	
-	sem_t			*r_fork;	
+	sem_t			*fork;	
 	sem_t			*stop;
 	long long		start_time;
 	long long		start_eat;

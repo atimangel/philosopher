@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 13:21:57 by snpark            #+#    #+#             */
-/*   Updated: 2021/08/09 11:34:22 by snpark           ###   ########.fr       */
+/*   Updated: 2021/09/16 16:41:15 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,6 @@ void		ft_usleep(const long long deadline);
 */
 int			is_dead(t_philo *philo);
 void		*routine(void *arg);
-/*
-**clean.c
-*/
-int			clean_table(t_condition *condition);
 /*
 **ripper.c
 */
