@@ -6,7 +6,7 @@
 #    By: snpark <snpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 13:11:34 by snpark            #+#    #+#              #
-#    Updated: 2021/09/16 14:33:53 by snpark           ###   ########.fr        #
+#    Updated: 2021/09/16 16:05:48 by snpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,10 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	gcc -o ./$(NAME)/$(NAME) $(OBJ) $(CPPFLAG) 
 
-bonus : $(BONUS_OBJ)
+$(NAME)_bonus : $(BONUS_OBJ)
 	gcc -o ./$(NAME)_bonus/$(NAME)_bonus $(BONUS_OBJ) $(CPPFLAG) 
+
+bonus : $(NAME)_bonus
 
 clean :
 	rm -rf $(OBJ) $(BONUS_OBJ)
