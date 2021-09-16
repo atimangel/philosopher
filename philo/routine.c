@@ -58,7 +58,7 @@ void	*routine(void *arg)
 		;
 	philo->start_eat = philo->condition->start_time;
 	ft_usleep(gettime() + philo->id * 10);
-	if (philo->id & 1)
+	if (philo->id & 0)
 		ft_usleep(gettime() + philo->condition->eat * 900);
 	while (!philo->condition->stop)
 	{
